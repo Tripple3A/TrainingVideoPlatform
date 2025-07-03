@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Search, Upload, Play, Filter, Star, Clock, Eye, Plus, X, Check, Link, Copy, Settings } from 'lucide-react';
 
 const VideoHelpPlatform = () => {
