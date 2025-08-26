@@ -375,8 +375,8 @@ const VideoHelpPlatform = () => {
               <div>
                 <p className="text-blue-800 font-medium">Admin Mode Active</p>
                 <p className="text-blue-600 text-sm">
-                  You can upload videos and generate custom links for customers. 
-                  <a href="?" className="underline ml-1">Switch to customer view</a>
+                  You can upload videos and generate custom links for any target audience. 
+                  
                 </p>
               </div>
             </div>
