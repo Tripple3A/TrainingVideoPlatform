@@ -4,11 +4,12 @@ import { Search, Upload, Play, Filter, Star, Clock, Eye, Plus, X, Check, Link, C
 const VideoHelpPlatform = () => {
   // Get URL parameters to determine mode and filters
   const urlParams = new URLSearchParams(window.location.search);
-  //const adminMode = urlParams.get('admin') === 'true';
-  const adminMode = urlParams.get('admin') !== 'false'; // This would make admin default
+  // Admin mode is only active if explicitly set to true or no parameters at all
+  const adminMode = urlParams.toString() === '' || urlParams.get('admin') === 'true';
   const presetCategory = urlParams.get('category');
   const presetAudience = urlParams.get('audience');
   const presetSearch = urlParams.get('search');
+  const hideUpload = urlParams.get('hideUpload') === 'true';
 
   const [videos, setVideos] = useState([
     {
@@ -295,7 +296,33 @@ const VideoHelpPlatform = () => {
   );
 
   // Show different header based on admin mode
-  const showUploadButton = adminMode && !urlParams.get('hideUpload');
+  const showUploadButton = adminMode && !hideUpload;
+
+  // Determine which quick access categories to show
+  const shouldShowQuickAccess = adminMode || (!presetAudience || presetAudience === 'All');
+  const quickAccessCategories = [];
+  
+  if (shouldShowQuickAccess) {
+    if (!presetAudience || presetAudience === 'All' || presetAudience === 'Customers') {
+      quickAccessCategories.push({
+        title: "For Customers",
+        subtitle: "Password reset, orders, accounts",
+        color: "from-blue-500 to-blue-600",
+        textColor: "text-blue-100",
+        href: "?audience=Customers&hideUpload=true"
+      });
+    }
+    
+    if (!presetAudience || presetAudience === 'All' || presetAudience === 'Inspectors') {
+      quickAccessCategories.push({
+        title: "For Inspectors", 
+        subtitle: "Inspection process & techniques",
+        color: "from-green-500 to-green-600",
+        textColor: "text-green-100",
+        href: "?audience=Inspectors&hideUpload=true"
+      });
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -315,22 +342,24 @@ const VideoHelpPlatform = () => {
             </div>
             <div className="flex items-center gap-3">
               {adminMode && (
-                <button 
-                  onClick={() => setShowLinkGenerator(true)}
-                  className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center gap-2"
-                >
-                  <Link size={20} />
-                  Generate Link
-                </button>
-              )}
-              {showUploadButton && (
-                <button 
-                  onClick={() => setShowUploadModal(true)}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2"
-                >
-                  <Plus size={20} />
-                  Upload Video
-                </button>
+                <>
+                  <button 
+                    onClick={() => setShowLinkGenerator(true)}
+                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center gap-2"
+                  >
+                    <Link size={20} />
+                    Generate Link
+                  </button>
+                  {showUploadButton && (
+                    <button 
+                      onClick={() => setShowUploadModal(true)}
+                      className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2"
+                    >
+                      <Plus size={20} />
+                      Upload Video
+                    </button>
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -338,7 +367,7 @@ const VideoHelpPlatform = () => {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Admin Mode Notice */}
+        {/* Admin Mode Notice - Only show in admin mode */}
         {adminMode && (
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
             <div className="flex items-center gap-2">
@@ -391,25 +420,21 @@ const VideoHelpPlatform = () => {
           </div>
         </div>
 
-     {/* Quick Access Categories */}
-     <div className="grid md:grid-cols-4 gap-4 mb-8">
-          <div 
-            onClick={() => window.location.href = '?audience=Customers&hideUpload=true'}
-            className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-lg cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all"
-          >
-            <h3 className="font-semibold mb-2">For Customers</h3>
-            <p className="text-blue-100 text-sm">Password reset, orders, accounts</p>
+        {/* Quick Access Categories - Only show relevant ones based on current view */}
+        {quickAccessCategories.length > 0 && (
+          <div className="grid md:grid-cols-4 gap-4 mb-8">
+            {quickAccessCategories.map((category, index) => (
+              <div 
+                key={index}
+                onClick={() => window.location.href = category.href}
+                className={`bg-gradient-to-r ${category.color} text-white p-6 rounded-lg cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all`}
+              >
+                <h3 className="font-semibold mb-2">{category.title}</h3>
+                <p className={`${category.textColor} text-sm`}>{category.subtitle}</p>
+              </div>
+            ))}
           </div>
-          <div 
-            onClick={() => window.location.href = '?audience=Inspectors&hideUpload=true'}
-            className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-lg cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all"
-          >
-            <h3 className="font-semibold mb-2">For Inspectors</h3>
-            <p className="text-green-100 text-sm">Inspection process & techniques</p>
-          </div>
-         
-         
-        </div>
+        )}
 
         {/* Video Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
