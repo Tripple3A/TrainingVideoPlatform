@@ -390,24 +390,24 @@ const VideoHelpPlatform = () => {
           </div>
         </div>
 
-        {/* Quick Access Categories */}
-        <div className="grid md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-lg">
+       {/* Quick Access Categories */}
+       <div className="grid md:grid-cols-4 gap-4 mb-8">
+          <div 
+            onClick={() => window.location.href = '?audience=Customers&hideUpload=true'}
+            className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-lg cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all"
+          >
             <h3 className="font-semibold mb-2">For Customers</h3>
             <p className="text-blue-100 text-sm">Password reset, orders, accounts</p>
           </div>
-          <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-lg">
+          <div 
+            onClick={() => window.location.href = '?audience=Inspectors&hideUpload=true'}
+            className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-lg cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all"
+          >
             <h3 className="font-semibold mb-2">For Inspectors</h3>
             <p className="text-green-100 text-sm">Inspection process & techniques</p>
           </div>
-          <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-lg">
-            <h3 className="font-semibold mb-2">Getting Started</h3>
-            <p className="text-purple-100 text-sm">New user onboarding guides</p>
-          </div>
-          <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-6 rounded-lg">
-            <h3 className="font-semibold mb-2">Advanced</h3>
-            <p className="text-orange-100 text-sm">Expert tips and workflows</p>
-          </div>
+         
+         
         </div>
 
         {/* Video Grid */}
