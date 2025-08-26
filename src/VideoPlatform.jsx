@@ -406,8 +406,8 @@ const VideoHelpPlatform = () => {
             <h3 className="font-semibold mb-2">For Inspectors</h3>
             <p className="text-green-100 text-sm">Inspection process & techniques</p>
           </div>
-       
-        
+         
+         
         </div>
 
         {/* Video Grid */}
