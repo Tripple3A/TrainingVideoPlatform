@@ -4,7 +4,8 @@ import { Search, Upload, Play, Filter, Star, Clock, Eye, Plus, X, Check, Link, C
 const VideoHelpPlatform = () => {
   // Get URL parameters to determine mode and filters
   const urlParams = new URLSearchParams(window.location.search);
-  const adminMode = urlParams.get('admin') === 'true';
+  //const adminMode = urlParams.get('admin') === 'true';
+  const adminMode = urlParams.get('admin') !== 'false'; // This would make admin default
   const presetCategory = urlParams.get('category');
   const presetAudience = urlParams.get('audience');
   const presetSearch = urlParams.get('search');
