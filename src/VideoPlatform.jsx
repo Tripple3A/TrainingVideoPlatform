@@ -390,8 +390,8 @@ const VideoHelpPlatform = () => {
           </div>
         </div>
 
-       {/* Quick Access Categories */}
-       <div className="grid md:grid-cols-4 gap-4 mb-8">
+     {/* Quick Access Categories */}
+     <div className="grid md:grid-cols-4 gap-4 mb-8">
           <div 
             onClick={() => window.location.href = '?audience=Customers&hideUpload=true'}
             className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-lg cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all"
@@ -406,8 +406,8 @@ const VideoHelpPlatform = () => {
             <h3 className="font-semibold mb-2">For Inspectors</h3>
             <p className="text-green-100 text-sm">Inspection process & techniques</p>
           </div>
-         
-         
+       
+        
         </div>
 
         {/* Video Grid */}
